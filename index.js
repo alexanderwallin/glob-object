@@ -10,15 +10,19 @@
 var utils = require('./utils');
 
 function globObject(patterns, obj, opts) {
-  patterns = arrayify(patterns).map(toSlashes);
-  var keys = utils.stringify(obj, '/');
-  var matches = utils.mm(keys, patterns, opts);
+  var matches = getMatches(patterns, obj, opts);
 
   return matches.reduce(function(acc, path) {
     var key = toDots(path);
     utils.set(acc, key, utils.get(obj, key));
     return acc;
   }, {});
+}
+
+function getMatches(patterns, obj, opts) {
+  patterns = arrayify(patterns).map(toSlashes);
+  var keys = utils.stringify(obj, '/');
+  return utils.mm(keys, patterns, opts);
 }
 
 function toSlashes(key) {
@@ -38,3 +42,5 @@ function arrayify(val) {
  */
 
 module.exports = globObject;
+module.exports.globObject = globObject;
+module.exports.getMatches = getMatches;
