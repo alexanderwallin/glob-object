@@ -22,7 +22,8 @@ function globObject(patterns, obj, opts) {
 function getMatches(patterns, obj, opts) {
   patterns = arrayify(patterns).map(toSlashes);
   var keys = utils.stringify(obj, '/');
-  return utils.mm(keys, patterns, opts);
+  var matches = utils.mm(keys, patterns, opts);
+  return matches.map(toDots);
 }
 
 function toSlashes(key) {

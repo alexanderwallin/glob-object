@@ -47,19 +47,19 @@ describe('globObject', function() {
 
 describe('getMatches', function() {
   it('should match properties using wildcards:', function() {
-    assert.deepEqual(getMatches('a.*', fixture), ['a/b', 'a/i']);
+    assert.deepEqual(getMatches('a.*', fixture), ['a.b', 'a.i']);
   });
 
   it('should match properties using braces:', function() {
-    assert.deepEqual(getMatches('*.{b,i}', fixture), ['a/b', 'a/i']);
-    assert.deepEqual(getMatches('a.*.{c,e}', fixture), ['a/b/c', 'a/b/e']);
+    assert.deepEqual(getMatches('*.{b,i}', fixture), ['a.b', 'a.i']);
+    assert.deepEqual(getMatches('a.*.{c,e}', fixture), ['a.b.c', 'a.b.e']);
   });
 
   it('should match a nested property using a wildcard:', function() {
-    assert.deepEqual(getMatches('a.*.g', fixture), ['a/b/g']);
+    assert.deepEqual(getMatches('a.*.g', fixture), ['a.b.g']);
   });
 
   it('should match deep properties using globstars', function() {
-    assert.deepEqual(getMatches('a.**.g', fixture), ['a/b/g', 'a/b/l/g']);
+    assert.deepEqual(getMatches('a.**.g', fixture), ['a.b.g', 'a.b.l.g']);
   });
 })
