@@ -13,8 +13,7 @@ function globObject(patterns, obj, opts) {
   var matches = getMatches(patterns, obj, opts);
 
   return matches.reduce(function(acc, path) {
-    var key = toDots(path);
-    utils.set(acc, key, utils.get(obj, key));
+    utils.set(acc, path, utils.get(obj, path));
     return acc;
   }, {});
 }
