@@ -17,6 +17,11 @@ var globObject = require('glob-object');
 
 globObject('a.*.f', {a: {b: {c: 'd'}, e: {f: 'g'}}});
 //=> { a: { e: { f: 'g' } } }
+
+// Get matching paths only
+var getMatches = require('glob-object').getMatches;
+getMatches('a.*.x', {a: {b: {x: 1}, c: {x: 2}}})
+//=> ['a.b.x', 'a.c.x']
 ```
 
 ## Examples
@@ -50,6 +55,9 @@ globObject('*', obj);
 ```js
 globObject('a.*.{c,e}', obj);
 //=> {a: {b: {c: 'd', e: 'f'}}}
+
+getMatches('a.*.{c,e}', obj);
+//=> ['a.b.c', 'a.c.e']
 ```
 
 ## match a nested property using a wildcard
@@ -59,6 +67,9 @@ A single star will match one level of the object:
 ```js
 globObject('a.*.g', obj);
 //=> {a: {b: {g: 'h'}}}
+
+getMatches('a.*.g', obj);
+//=> ['a.b.g']
 ```
 
 ## match deep properties using globstars
@@ -68,6 +79,9 @@ A double star will match to any depth (note that the single star in the previous
 ```js
 globObject('a.**.g', obj);
 //=> {a: {b: {g: 'h', l: {g: 'k'}}}}
+
+globObject('a.**.g', obj);
+//=> ['a.b.g', 'a.b.l.g']
 ```
 
 ## Related projects
